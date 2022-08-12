@@ -1,12 +1,9 @@
-const express = require('express')
-
-//creado la app
+import express from 'express'
+import usuarioRoutes from './routes/usuarioRoutes.js'
+//Creado la app
 const app = express()
-
-//routing
-app.get('/', function (req, res) {
-  res.send('Hello World in express')
-})
+//Routing
+app.use('/', usuarioRoutes)
 
 //Definir un puerto y arrancamos el proyecto
 const port = 3000
