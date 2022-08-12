@@ -1,0 +1,33 @@
+{
+  "name": "tolucainmobiliario",
+  "version": "1.0.0",
+  "description": "Proyecto de desarrollo inmobiliario",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dan10vaz/tolucaInmobiliario.git"
+  },
+  "keywords": [
+    "MVC",
+    "Pug",
+    "Tailwind",
+    "MYSQL",
+    "Sequelize"
+  ],
+  "author": "Daniel Cristopher Vazquez Ayala",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dan10vaz/tolucaInmobiliario/issues"
+  },
+  "homepage": "https://github.com/Dan10vaz/tolucaInmobiliario#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
