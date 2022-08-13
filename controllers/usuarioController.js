@@ -10,10 +10,19 @@ const formularioRegistro = (req, res) => {
   })
 }
 
+const registrar = (req, res) => {
+  console.log(req.body)
+}
+
 const formularioOlvidePassword = (req, res) => {
   res.render('auth/olvide-password', {
     pagina: 'Recupera tu acceso a Toluca Grupo Inmobiliario',
   })
 }
 
-export { formularioLogin, formularioRegistro, formularioOlvidePassword }
+export {
+  formularioLogin,
+  formularioRegistro,
+  formularioOlvidePassword,
+  registrar,
+}
