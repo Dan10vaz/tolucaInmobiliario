@@ -9,11 +9,11 @@ app.use(express.urlencoded({ extended: true }))
 
 //Conexión a la base de datos
 try {
-  await db.authenticate()
-  db.sync()
-  console.log('Conexión a la base de datos establecida')
+    await db.authenticate()
+    db.sync()
+    console.log('Conexión a la base de datos establecida')
 } catch (error) {
-  console.log(error)
+    console.log(error)
 }
 
 //Habilitar Pug
@@ -29,5 +29,6 @@ app.use('/auth', usuarioRoutes)
 //Definir un puerto y arrancamos el proyecto
 const port = 3000
 app.listen(port, () => {
-  console.log(`Server running on port ${port}`)
+    console.log(`Server running on port ${port}`)
 })
+
