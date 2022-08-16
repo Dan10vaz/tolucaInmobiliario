@@ -2,6 +2,7 @@ import { check, validationResult } from 'express-validator'
 import Usuario from '../models/Usuario.js'
 import { generateId } from '../helpers/tokens.js'
 import { emailRegister } from '../helpers/emails.js'
+import { emailOlvidePassword } from '../helpers/emails.js'
 
 const formularioLogin = (req, res) => {
     res.render('auth/login', {
@@ -16,10 +17,6 @@ const formularioRegistro = (req, res) => {
         csrfToken: req.csrfToken(),
     })
 }
-
-
-
-
 
 // Guardamos un usuario en la base de datos
 const registrar = async (req, res) => {
@@ -115,7 +112,63 @@ const confirmar = async (req, res) => {
 const formularioOlvidePassword = (req, res) => {
     res.render('auth/olvide-password', {
         pagina: 'Recupera tu acceso a Toluca Grupo Inmobiliario',
+        //habilitamos el csrf
+        csrfToken: req.csrfToken(),
     })
+}
+
+const resetPassword = async (req, res) => {
+    //validacion
+    await check('email').isEmail().withMessage('No es un email valido').run(req);
+    let resultado = validationResult(req)
+
+    //verificamos si el resultado no esta vacio
+    if (!resultado.isEmpty()) {
+        // hay errores
+        return res.render('auth/olvide-password', {
+            pagina: 'Recupera tu acceso a Toluca Grupo Inmobiliario',
+            //habilitamos el csrf
+            csrfToken: req.csrfToken(),
+            errores: resultado.array(),
+        })
+    }
+
+    // Si esta bien y existe buscamos al usuario
+    const { email } = req.body;
+    const user = await Usuario.findOne({ where: { email } })
+    if (!user) {
+        return res.render('auth/olvide-password', {
+            pagina: 'Recupera tu acceso a Toluca Grupo Inmobiliario',
+            //habilitamos el csrf
+            csrfToken: req.csrfToken(),
+            errores: [{ msg: 'El email no pertenece a ningun usuario' }],
+        })
+    }
+
+    //generamos un token y enviamos al correo del usuario
+    user.token = generateId();
+    await user.save();
+
+    //enviar email
+    emailOlvidePassword({
+        email: user.email,
+        nombre: user.nombre,
+        token: user.token,
+    })
+    //renderizar mensaje
+    //Mostramos el mensaje de confirmacion
+    res.render('templates/mensaje', {
+        pagina: 'Restablecer tu contraseña',
+        mensaje: 'Hemos enviado un email con las instrucciones para restablecer tu contraseña',
+    })
+}
+
+const comprobarToken = (req, res) => {
+
+}
+
+const nuevoPassword = (req, res) => {
+
 }
 
 export {
@@ -124,4 +177,7 @@ export {
     confirmar,
     formularioOlvidePassword,
     registrar,
+    resetPassword,
+    comprobarToken,
+    nuevoPassword,
 }
