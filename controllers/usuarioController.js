@@ -1,4 +1,5 @@
 import { check, validationResult } from 'express-validator'
+import bcrypt from 'bcrypt'
 import Usuario from '../models/Usuario.js'
 import { generateId } from '../helpers/tokens.js'
 import { emailRegister } from '../helpers/emails.js'
@@ -163,12 +164,56 @@ const resetPassword = async (req, res) => {
     })
 }
 
-const comprobarToken = (req, res) => {
+const comprobarToken = async (req, res) => {
+    const { token } = req.params;
+    const user = await Usuario.findOne({ where: { token } })
+    if (!user) {
+        return res.render('auth/confirmar-password', {
+            pagina: 'Restablecer tu contraseña',
+            mensaje: 'Hubo un error al restablecer tu contraseña, por favor intenta de nuevo',
+            error: true,
+        })
+    }
 
+    //mostrar formulario para modificar el password
+    res.render('auth/reset-password', {
+        pagina: 'Restablecer tu contraseña',
+        //habilitamos el csrf
+        csrfToken: req.csrfToken(),
+    })
 }
 
-const nuevoPassword = (req, res) => {
+const nuevoPassword = async (req, res) => {
+    // validar el nuevo password
+    await check('password').isLength({ min: 6 }).withMessage('El password debe tener al menos 6 caracteres').run(req);
+    let resultado = validationResult(req)
 
+    //verificamos si el resultado no esta vacio
+    if (!resultado.isEmpty()) {
+        // hay errores
+        return res.render('auth/reset-password', {
+            pagina: 'Restablecer tu Password',
+            //habilitamos el csrf
+            csrfToken: req.csrfToken(),
+            errores: resultado.array(),
+        })
+    }
+    const { token } = req.params;
+    const { password } = req.body;
+    //identificar quien hace el cambio
+    const user = await Usuario.findOne({ where: { token } })
+
+    //hashear el password
+    const salt = await bcrypt.genSalt(10)
+    user.password = await bcrypt.hash(password, salt)
+    user.token = null;
+
+    await user.save();
+
+    res.render('auth/confirmar-cuenta', {
+        pagina: 'Password restablecido con exito',
+        mensaje: 'Tu contraseña ha sido restablecida correctamente',
+    })
 }
 
 export {
