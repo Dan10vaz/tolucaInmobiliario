@@ -14,10 +14,27 @@ const importarDatos = async () => {
         //Generar las columnas de la tabla
         await db.sync()
         //Insertar los datos en la tabla
-        await Categoria.bulkCreate(categorias);
-        await Precio.bulkCreate(precios);
-        await Tipo.bulkCreate(tipos);
+        await Promise.all([
+            Categoria.bulkCreate(categorias),
+            Precio.bulkCreate(precios),
+            Tipo.bulkCreate(tipos)
+        ]);
         console.log("Datos insertados");
+        exit();
+    } catch (error) {
+        console.log(error);
+        exit(1);
+    }
+}
+
+const eliminarDatos = async () => {
+    try {
+        await Promise.all([
+            Categoria.destroy({ where: {}, truncate: true }),
+            Precio.destroy({ where: {}, truncate: true }),
+            Tipo.destroy({ where: {}, truncate: true })
+        ]);
+        console.log("Datos eliminados");
         exit();
     } catch (error) {
         console.log(error);
@@ -27,4 +44,8 @@ const importarDatos = async () => {
 
 if (process.argv[2] === "-i") {
     importarDatos();
+}
+
+if (process.argv[2] === "-e") {
+    eliminarDatos();
 }
