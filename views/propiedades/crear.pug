@@ -23,11 +23,11 @@ block contenido
 
                     div
                         label.block.text-sm.uppercase.text-gray-600.mb-2.font-bold(for="titulo") Titulo de anuncio:
-                        input#titulo.w-full.px-3.py-2.border.border-gray-400.rounded-md.placeholder-gray-600.text-center(placeholder="Titulo Propiedad, ej. Casa en la Playa" type="text" name="titulo")
+                        input#titulo.w-full.px-3.py-2.border.border-gray-400.rounded-md.placeholder-gray-600.text-center(placeholder="Titulo Propiedad, ej. Casa en la Playa" type="text" name="titulo" value=datos.titulo ? datos.titulo : "")
                     
                     div
                         label.block.text-sm.uppercase.text-gray-600.mb-2.font-bold(for="descripcion") Descripcion:
-                        textarea#descripcion.w-full.px-3.py-2.border.border-gray-400.rounded-md.placeholder-gray-600.text-center(placeholder="Descripcion de la Propiedad" name="descripcion")
+                        textarea#descripcion.w-full.px-3.py-2.border.border-gray-400.rounded-md.placeholder-gray-600.text-center(placeholder="Descripcion de la Propiedad" name="descripcion")= datos.descripcion ? datos.descripcion : ""
                     
                     div(class="md:flex md:gap-4 space-y-5 md:space-y-0")
 
@@ -36,21 +36,21 @@ block contenido
                             select#categoria.w-full.px-3.py-2.border.border-gray-400.rounded-md.placeholder-gray-600.text-center(name="categoria")
                                 option(value="") - Selecciona - 
                                 each categoria in categorias
-                                    option(value=categoria.id)= categoria.nombre
+                                    option(value=categoria.id selected= datos.categoria ? datos.categoria == categoria.id ? true : false : null)= categoria.nombre
                         
                         div(class="md:w-1/3")
-                            label.block.text-sm.uppercase.text-gray-600.mb-2.font-bold(for="estatus") Estatus:
-                            select#estatus.w-full.px-3.py-2.border.border-gray-400.rounded-md.placeholder-gray-600.text-center(name="estatus")
+                            label.block.text-sm.uppercase.text-gray-600.mb-2.font-bold(for="tipo") Tipo:
+                            select#tipo.w-full.px-3.py-2.border.border-gray-400.rounded-md.placeholder-gray-600.text-center(name="tipo")
                                 option(value="") - Selecciona -
                                 each tipo in tipos
-                                    option(value=tipo.id)= tipo.nombre
+                                    option(value=tipo.id selected= datos.tipo ? datos.tipo == tipo.id ? true : false : null)= tipo.nombre
                         
                         div(class="md:w-1/3")
                             label.block.text-sm.uppercase.text-gray-600.mb-2.font-bold(for="precio") Precio:
                             select#precio.w-full.px-3.py-2.border.border-gray-400.rounded-md.placeholder-gray-600.text-center(name="precio")
                                 option(value="") - Selecciona -
                                 each precio in precios
-                                    option(value=precio.id)= precio.nombre
+                                    option(value=precio.id selected= datos.precio ? datos.precio == precio.id ? true : false : null)= precio.nombre
                     
                     div(class="md:flex md:gap-4 space-y-5 md:space-y-0")
 
@@ -60,7 +60,7 @@ block contenido
                                 option(value="") - Selecciona -
                                 - var n = 0;
                                     while n <= 10
-                                        option(value=n) #{n++}
+                                        option(value=n selected= datos.habitaciones ? datos.habitaciones == n ? true : false : null) #{n++}
                         
                         div(class="md:w-1/3")
                             label.block.text-sm.uppercase.text-gray-600.mb-2.font-bold(for="estacionamiento") Estacionamiento:
@@ -68,7 +68,7 @@ block contenido
                                 option(value="") - Selecciona -
                                 - var n = 0;
                                     while n <= 10
-                                        option(value=n) #{n++}
+                                        option(value=n selected= datos.estacionamiento ? datos.estacionamiento == n ? true : false : null) #{n++}
                                 
                         
                         div(class="md:w-1/3")
@@ -77,7 +77,7 @@ block contenido
                                 option(value="") - Selecciona -
                                 - var n = 0;
                                     while n <= 10
-                                        option(value=n) #{n++}
+                                        option(value=n selected= datos.wc ? datos.wc == n ? true : false : null) #{n++}
                     
                     div.border-gray-200.border-t.py-5.space-y-5
                         h3.text-lg.leading-6.font-medium.text-gray-900 Ubicacion
@@ -85,11 +85,11 @@ block contenido
                         #mapa.h-96
 
                         div
-                            p.calle.text-center.font-bold
+                            p.calle.text-center.font-bold= datos.calle ? datos.calle : ""
                         
-                        input(type="hidden" name="calle" id="calle")
-                        input(type="hidden" name="lat" id="lat")
-                        input(type="hidden" name="lng" id="lng")
+                        input(type="hidden" name="calle" id="calle" value= datos.calle ? datos.calle : "")
+                        input(type="hidden" name="lat" id="lat" value= datos.lat ? datos.lat : "")
+                        input(type="hidden" name="lng" id="lng" value= datos.lng ? datos.lng : "")
                     
                     input(class="w-full py-3 bg-indigo-600 hover:bg-indigo-800 rounded text-white font-bold uppercase cursor-pointer" type="submit" value="Añadir Imagenes")
 
