@@ -9,8 +9,14 @@ block contenido
             span.font-normal GrupoInmobiliario
         h2.text-center.text-2xl.font-extrabold=pagina
 
+        if errores
+            div(class="max-w-md mx-auto my-5")
+                each error in errores
+                    p.text-red-400.uppercase.text-sm.text-center.p-1.mb-1.font-bold=error.msg 
+
         div(class="bg-white shadow-2xl py-8 px-4 rounded mx-auto max-w-4xl my-10 md:px-10")
-            form.space-y-8
+            form.space-y-8(method="POST", action="/propiedades/crear")
+                input(type="hidden" name="_csrf" value= csrfToken)
                 div.space-y-5
                     h3.text-lg.leading-6.font-medium.text-gray-900 Informacion General
                     p.text-gray-600 Añade informacion sobre la propiedad en venta
@@ -84,6 +90,8 @@ block contenido
                         input(type="hidden" name="calle" id="calle")
                         input(type="hidden" name="lat" id="lat")
                         input(type="hidden" name="lng" id="lng")
+                    
+                    input(class="w-full py-3 bg-indigo-600 hover:bg-indigo-800 rounded text-white font-bold uppercase cursor-pointer" type="submit" value="Añadir Imagenes")
 
 block scripts
     script(src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js")
