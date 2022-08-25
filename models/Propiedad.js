@@ -16,6 +16,10 @@ const Propiedad = db.define('propiedades', {
         type: DataTypes.TEXT,
         allowNull: false
     },
+    imagen: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     habitaciones: {
         type: DataTypes.INTEGER,
         allowNull: false
