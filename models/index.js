@@ -10,7 +10,8 @@ Propiedad.belongsTo(Precio, { foreignKey: 'precioId' });
 Propiedad.belongsTo(Categoria, { foreignKey: 'categoriaId' });
 Propiedad.belongsTo(Tipo, { foreignKey: 'tipoId' });
 Propiedad.belongsTo(Usuario, { foreignKey: 'usuarioId' });
-Propiedad.hasMany(Imagen, { foreignKey: 'propiedadId' });
+Propiedad.hasMany(Imagen);
+Imagen.belongsTo(Propiedad);
 
 
 export {

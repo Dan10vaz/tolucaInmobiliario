@@ -15,5 +15,18 @@ Dropzone.options.imagen = {
     headers: {
         'CSRF-Token': token
     },
-    paramName: 'imagen'
+    paramName: 'imagen',
+    init: function () {
+        const dropzone = this
+        const btnPublicar = document.querySelector('#publicar')
+
+        btnPublicar.addEventListener('click', function () {
+            dropzone.processQueue()
+        })
+        dropzone.on('queuecomplete', function () {
+            if (dropzone.getActiveFiles().length == 0) {
+                window.location.href = '/mis-propiedades'
+            }
+        })
+    }
 }
