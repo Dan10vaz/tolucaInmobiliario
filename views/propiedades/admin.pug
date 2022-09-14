@@ -7,3 +7,19 @@ block contenido
         h2.text-center.text-2xl.font-extrabold=pagina
 
         a(href="/propiedades/crear" class="rounded py-2 px-10 bg-indigo-600 hover:bg-indigo-800 text-sm font-bold text-center text-white uppercase my-5 inline-block w-full sm:w-auto") Publicar Propiedad
+
+        pre= JSON.stringify(propiedades, undefined, 2)
+        if propiedades.length
+
+            div(class="bg-white shadow-2xl rounded-lg")
+                ul(class="divide-y divide-gray-200")
+                    each propiedad in propiedades
+                        li
+                            div(class="p-6 w-full flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-8 gap-4")
+                                div(class="sm:w-1/4 md:w-1/6")
+                                    img(src=`uploads/${propiedad.imagenes[0].imagenes}` alt=`${propiedad.imagenes[0].imagenes}`)
+                                div(class="sm:w-2/4 md:w-3/6 lg:w-4/6") 
+                                    h1(class="text-center") 
+                                div(class="sm:w-1/4 md:w-2/6 lg:w-1/6") 
+        else 
+            p.text-center No Hay Propiedades

@@ -2,9 +2,26 @@ import { validationResult } from 'express-validator';
 import { Precio, Categoria, Tipo, Propiedad, Imagen } from '../models/index.js';
 
 //Renderisa la vista de propiedades de un usuario
-const admin = (req, res) => {
+const admin = async (req, res) => {
+
+    const { id } = req.usuario;
+    const propiedades = await Propiedad.findAll({
+        where: {
+            usuarioId: id
+        },
+        include: [
+            {
+                model: Imagen,
+                as: 'imagenes'
+            },
+        ]
+    })
+    console.log('estas son las propiedades', propiedades)
+
     res.render('propiedades/admin', {
-        pagina: 'Mis Propiedades'
+        pagina: 'Mis Propiedades',
+        propiedades,
+        Imagen
     });
 }
 
