@@ -1,3 +1,4 @@
+import { request } from 'express';
 import { validationResult } from 'express-validator';
 import { Precio, Categoria, Tipo, Propiedad, Imagen } from '../models/index.js';
 
@@ -24,7 +25,7 @@ const admin = async (req, res) => {
             }
         ]
     })
-    console.log('estas son las propiedades', propiedades)
+    /*  console.log('estas son las propiedades', propiedades) */
 
     res.render('propiedades/admin', {
         pagina: 'Mis Propiedades',
@@ -166,10 +167,110 @@ const almacenarImagen = async (req, res, next) => {
     }
 }
 
+const editar = async (req, res) => {
+
+    // extraemos el id de la url
+    const { id } = req.params;
+
+    //validar que la propiedad exista
+    const propiedad = await Propiedad.findByPk(id);
+    //Si no hay propiedad
+    if (!propiedad) {
+        return res.redirect('/mis-propiedades')
+    }
+
+    //revisar que quien visita la url es quien creo la propiedad
+    if (propiedad.usuarioId.toString() !== req.usuario.id.toString()) {
+        return res.redirect('/mis-propiedades')
+    }
+    //consultar las categorias, precios y los tipos de propiedades
+    const [categorias, precios, tipos] = await Promise.all([
+        Categoria.findAll(),
+        Precio.findAll(),
+        Tipo.findAll()
+    ]);
+
+    res.render('propiedades/editar', {
+        pagina: `Editar Propiedad: ${propiedad.titulo}`,
+        csrfToken: req.csrfToken(),
+        categorias,
+        precios,
+        tipos,
+        datos: propiedad
+    });
+}
+
+const guardarCambios = async (req, res) => {
+
+    //Verificar la validacion
+    //validacion 
+    let resultado = validationResult(req);
+
+    if (!resultado.isEmpty()) {
+        //consultar las categorias, precios y los tipos de propiedades
+        const [categorias, precios, tipos] = await Promise.all([
+            Categoria.findAll(),
+            Precio.findAll(),
+            Tipo.findAll()
+        ])
+
+        return res.render('propiedades/editar', {
+            pagina: 'Editar Propiedad',
+            csrfToken: req.csrfToken(),
+            categorias,
+            precios,
+            tipos,
+            errores: resultado.array(),
+            datos: req.body
+        })
+    }
+
+    // extraemos el id de la url
+    const { id } = req.params;
+
+    //validar que la propiedad exista
+    const propiedad = await Propiedad.findByPk(id);
+    //Si no hay propiedad
+    if (!propiedad) {
+        return res.redirect('/mis-propiedades')
+    }
+
+    //revisar que quien visita la url es quien creo la propiedad
+    if (propiedad.usuarioId.toString() !== req.usuario.id.toString()) {
+        return res.redirect('/mis-propiedades')
+    }
+
+    //reescribir los datos y actualizarlos
+    try {
+        const { titulo, descripcion, categoria: categoriaId, precio: precioId, tipo: tipoId, habitaciones, estacionamiento, wc, calle, lat, lng } = req.body;
+
+        propiedad.set({
+            titulo,
+            descripcion,
+            categoriaId,
+            precioId,
+            tipoId,
+            habitaciones,
+            estacionamiento,
+            wc,
+            calle,
+            lat,
+            lng
+        })
+        await propiedad.save();
+        res.redirect('/mis-propiedades')
+    } catch (error) {
+        console.log(error)
+    }
+
+};
+
 export {
     admin,
     crear,
     guardar,
     agregarImagen,
-    almacenarImagen
+    almacenarImagen,
+    editar,
+    guardarCambios
 }
