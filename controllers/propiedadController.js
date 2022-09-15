@@ -14,6 +14,14 @@ const admin = async (req, res) => {
                 model: Imagen,
                 as: 'imagenes'
             },
+            {
+                model: Categoria,
+                as: 'categoria'
+            },
+            {
+                model: Precio,
+                as: 'precio'
+            }
         ]
     })
     console.log('estas son las propiedades', propiedades)
@@ -21,7 +29,6 @@ const admin = async (req, res) => {
     res.render('propiedades/admin', {
         pagina: 'Mis Propiedades',
         propiedades,
-        Imagen
     });
 }
 
