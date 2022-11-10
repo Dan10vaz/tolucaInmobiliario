@@ -1,4 +1,4 @@
-import { request } from 'express';
+import { unlink } from 'node:fs/promises';
 import { validationResult } from 'express-validator';
 import { Precio, Categoria, Tipo, Propiedad, Imagen } from '../models/index.js';
 
@@ -30,6 +30,7 @@ const admin = async (req, res) => {
     res.render('propiedades/admin', {
         pagina: 'Mis Propiedades',
         propiedades,
+        csrfToken: req.csrfToken(),
     });
 }
 
@@ -152,7 +153,7 @@ const almacenarImagen = async (req, res, next) => {
 
     try {
         //almacenar imagen y publicar propiedad
-        /* console.log(req.file) */
+        console.log(req.file)
         propiedad.publicado = 1
         const guardar = await Imagen.create({
             imagenes: req.file.filename,
@@ -262,7 +263,67 @@ const guardarCambios = async (req, res) => {
     } catch (error) {
         console.log(error)
     }
+};
 
+const eliminar = async (req, res) => {
+    // extraemos el id de la url
+    const { id } = req.params;
+
+    //validar que la propiedad exista
+    const propiedad = await Propiedad.findByPk(id);
+
+    const imagenes = await Imagen.findAll({
+        where: { propiedadeId: propiedad.id },
+    });
+
+    //Si no hay propiedad
+    if (!propiedad) {
+        return res.redirect('/mis-propiedades')
+    }
+
+    //revisar que quien visita la url es quien creo la propiedad
+    if (propiedad.usuarioId.toString() !== req.usuario.id.toString()) {
+        return res.redirect('/mis-propiedades')
+    }
+
+    //Eliminar las imagenes asociadas
+    /* await unlink(`public/uploads/${imagenes.imagenes}`) */
+
+    for (let i = 0; i < imagenes.length; i++) {
+        await unlink(`public/uploads/${imagenes[i].imagenes}`)
+    }
+
+    //eliminar la propiedad
+    await Imagen.destroy({
+        where: { propiedadeId: propiedad.id },
+    });
+    await propiedad.destroy();
+    console.log('se borro la propiedad y las imagenes', imagenes, propiedad)
+    res.redirect('/mis-propiedades')
+};
+
+// Muestra una propiedad
+
+const mostrarPropiedad = async (req, res) => {
+    const { id } = req.params;
+
+    //comprobamos que la propiedad exista
+    const propiedad = await Propiedad.findByPk(id, {
+        include: [
+            { model: Precio, as: 'precio' },
+            { model: Categoria, as: 'categoria' },
+            { model: Tipo, as: 'tipo' },
+        ]
+    })
+
+    if (!propiedad) {
+        return res.redirect('/404')
+    }
+
+    res.render('propiedades/mostrar', {
+        propiedad,
+        pagina: propiedad.titulo
+    })
 };
 
 export {
@@ -272,5 +333,7 @@ export {
     agregarImagen,
     almacenarImagen,
     editar,
-    guardarCambios
+    guardarCambios,
+    eliminar,
+    mostrarPropiedad
 }

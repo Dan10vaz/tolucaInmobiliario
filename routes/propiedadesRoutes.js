@@ -1,6 +1,6 @@
-import express from "express";
+import express, { Router } from "express";
 import { body } from 'express-validator';
-import { admin, crear, guardar, agregarImagen, almacenarImagen, editar, guardarCambios } from "../controllers/propiedadController.js";
+import { admin, crear, guardar, agregarImagen, almacenarImagen, editar, guardarCambios, eliminar, mostrarPropiedad } from "../controllers/propiedadController.js";
 import protegerRuta from "../middleware/protegerRuta.js";
 import upload from "../middleware/subirArchivo.js";
 
@@ -44,5 +44,11 @@ router.post('/propiedades/editar/:id',
     body('wc').isNumeric().withMessage('Selecciona un número de baños'),
     body('lat').notEmpty().withMessage('Ubica la propiedad en el mapa'),
     guardarCambios)
+
+router.post('/propiedades/eliminar/:id', protegerRuta, eliminar)
+
+// Area publica 
+
+router.get('/propiedad/:id', mostrarPropiedad)
 
 export default router;
