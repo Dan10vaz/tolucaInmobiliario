@@ -5,6 +5,16 @@ import { Precio, Categoria, Tipo, Propiedad, Imagen } from '../models/index.js';
 //Renderisa la vista de propiedades de un usuario
 const admin = async (req, res) => {
 
+    //Leer QueryString
+
+    const { pagina: paginaActual } = req.query;
+
+    const expresion = /[0-9]/
+
+    if (!expresion.test(paginaActual)) {
+        return res.redirect('/mis-propiedades?pagina=1')
+    }
+
     const { id } = req.usuario;
     const propiedades = await Propiedad.findAll({
         where: {
@@ -313,6 +323,7 @@ const mostrarPropiedad = async (req, res) => {
             { model: Precio, as: 'precio' },
             { model: Categoria, as: 'categoria' },
             { model: Tipo, as: 'tipo' },
+            { model: Imagen, as: 'imagenes' },
         ]
     })
 
