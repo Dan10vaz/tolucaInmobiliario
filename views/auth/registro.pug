@@ -2,29 +2,38 @@ extends ../layout/index
 
 block contenido
     div.py-10
-        h1.text-4xl.my-10.font-extrabold.text-center Grupo
-            span.font-normal Inmobiliario
-        h2.text-center.text-2xl.font-extrabold=pagina
-        
+        h1.text-4xl.my-10.font-extrabold.text-center Toluca
+            span.font-normal GrupoInmobiliario
+        h2.text-center.text-2xl.font-extrabold.text-indigo-500=pagina
 
+        if errores
+            div(class="max-w-md mx-auto my-5")
+                each error in errores
+                    p.text-red-400.uppercase.text-sm.text-center.p-1.mb-1.font-bold=error.msg  
+                    
         .mt-8.mx-auto.max-w-md
             .bg-blue-100.py-8.px-4.shadow-xl.rounded-lg
-                form.space-y-5(method="POST" action="/auth/registro")
+                form.space-y-5(method="POST" action="/auth/registro" novalidate)
+                    input(type="hidden" name="_csrf" value=csrfToken)
                     div
-                        label.block.text-sm.uppercase.text-gray-600.mb-2.font-bold(for="nombre") Escribe tu Nombre:
-                        input#nombre.w-full.px-3.py-2.border.border-gray-400.rounded-md.placeholder-gray-600.text-center(placeholder="Ej: Juan Pérez" type="text" name="nombre")
+                        label.block.text-sm.text-gray-600.mb-2.font-bold(for="nombre") Escribe tu Nombre:
+                        input#nombre.w-full.px-3.py-2uppercase.border.border-gray-400.rounded-md.placeholder-gray-600.text-center(placeholder="Ej: Juan Pérez" type="text" name="nombre" value= usuario ? usuario.nombre : "")
+                       
                     div
                         label.block.text-sm.uppercase.text-gray-600.mb-2.font-bold(for="email") Email de Registro:
-                        input#email.w-full.px-3.py-2.border.border-gray-400.rounded-md.placeholder-gray-600.text-center(placeholder="Ej: juanp10@hotmail.com" type="email" name="email")
+                        input#email.w-full.px-3.py-2.border.border-gray-400.rounded-md.placeholder-gray-600.text-center(placeholder="Ej: juanp10@hotmail.com" type="email" name="email" value= usuario ? usuario.email : "")
+                
                     div
                         label.block.text-sm.uppercase.text-gray-600.mb-2.font-bold(for="password") Password:
                         input#password.w-full.px-3.py-2.border.border-gray-400.rounded-md.placeholder-gray-600.text-center(placeholder="Tu password" type="password" name="password")
+                        
                     div
                         label.block.text-sm.uppercase.text-gray-600.mb-2.font-bold(for="repetir_password") Repetir Password:
                         input#repetir_password.w-full.px-3.py-2.border.border-gray-400.rounded-md.placeholder-gray-600.text-center(placeholder="Repite tu password" type="password" name="repetir_password")
+                        
                     
                     div.flex.items-center.justify-between
                         a.text-gray-500.text-sm(href="/auth/login") Ya tienes cuenta? Inicia Sesión
                         a.text-gray-500.text-sm(href="/auth/olvide-password") Olvide mi password
                         
-                    input(class="w-full bg-indigo-500 hover:bg-indigo-700 text-white font-bold cursor-pointer py-2 rounded-md" type="submit" value="Crear Cuenta")
+                    input(class="w-full bg-indigo-500 hover:bg-indigo-700 text-white font-bold cursor-pointer py-2 rounded-md shadow-2xl" type="submit" value="Crear Cuenta")

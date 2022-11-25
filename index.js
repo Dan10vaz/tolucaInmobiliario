@@ -1,5 +1,10 @@
 import express from 'express'
+import csrf from 'csurf'
+import cookieParser from 'cookie-parser'
 import usuarioRoutes from './routes/usuarioRoutes.js'
+import propiedadRoutes from './routes/propiedadesRoutes.js'
+import appRoutes from './routes/appRoutes.js'
+import apiRoutes from './routes/apiRoutes.js'
 import db from './config/dataBase.js'
 //Creado la app
 const app = express()
@@ -7,13 +12,19 @@ const app = express()
 //habilitar lectura de datos de formularios
 app.use(express.urlencoded({ extended: true }))
 
+//habilitar parseo de cookies
+app.use(cookieParser())
+
+//habilitar csrf
+app.use(csrf({ cookie: true }))
+
 //Conexión a la base de datos
 try {
-  await db.authenticate()
-  db.sync()
-  console.log('Conexión a la base de datos establecida')
+    await db.authenticate()
+    db.sync()
+    console.log('Conexión a la base de datos establecida')
 } catch (error) {
-  console.log(error)
+    console.log(error)
 }
 
 //Habilitar Pug
@@ -24,10 +35,14 @@ app.set('views', './views')
 app.use(express.static('public'))
 
 //Routing
+app.use('/', appRoutes)
 app.use('/auth', usuarioRoutes)
+app.use('/', propiedadRoutes)
+app.use('/api', apiRoutes)
 
 //Definir un puerto y arrancamos el proyecto
-const port = 3000
+const port = process.env.PORT || 3000
 app.listen(port, () => {
-  console.log(`Server running on port ${port}`)
+    console.log(`Server running on port ${port}`)
 })
+
