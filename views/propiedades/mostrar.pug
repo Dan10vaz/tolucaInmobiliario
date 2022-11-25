@@ -23,7 +23,7 @@ block contenido
                 div(class=" carousel rounded-box")
                     each i in propiedad.imagenes
                         div(class="carousel-item")
-                            img(class="w-96" src=`/uploads/${i.imagenes}`)
+                            img(class="object-cover h-96 w-full" src=`/uploads/${i.imagenes}`)
 
                 div(class="px-5 py-3 space-y-5")
                     p= propiedad.descripcion

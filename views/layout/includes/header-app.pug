@@ -1,9 +1,18 @@
 header.bg-indigo-600.p-4
         .container.mx-auto.flex.justify-between.items-center
-            h1.text-2xl.text-white.font-extrabold.text-center Toluca
-                span.font-normal GrupoInmobiliario
+            a(href="/") 
+                h1.text-2xl.text-white.font-extrabold.text-center Toluca
+                    span.font-normal GrupoInmobiliario
             
             nav(class="my-5 text-sm md:flex md:items-center md:gap-10 font-bold text-white hidden")
-                a(href="") Mis Propiedades
-                a(href="") Mi Perfil
-                a(class="bg-indigo-800 py-2 px-10 rounded-lg" href="") Cerrar Sesión
+                a(href="/auth/registro") Crear Cuenta
+                a(href="/auth/login") Iniciar Sesión
+                
+div(class=" py-5 hidden lg:block")
+    div(class="container mx-auto flex justify-around")
+        a(href="/categorias/1" class="text-sm font-bold p-2 rounded-sm duration-500 uppercase text-indigo-500 hover:text-white hover:bg-indigo-500") Casas  
+        a(href="/categorias/2" class="text-sm font-bold p-2 rounded-sm duration-500 uppercase text-indigo-500 hover:text-white hover:bg-indigo-500") Departamentos
+        a(href="/categorias/3" class="text-sm font-bold p-2 rounded-sm duration-500 uppercase text-indigo-500 hover:text-white hover:bg-indigo-500") Bodegas
+        a(href="/categorias/4" class="text-sm font-bold p-2 rounded-sm duration-500 uppercase text-indigo-500 hover:text-white hover:bg-indigo-500") Terrenos
+        a(href="/categorias/5" class="text-sm font-bold p-2 rounded-sm duration-500 uppercase text-indigo-500 hover:text-white hover:bg-indigo-500") Oficinas
+        a(href="/categorias/6" class="text-sm font-bold p-2 rounded-sm duration-500 uppercase text-indigo-500 hover:text-white hover:bg-indigo-500") Locales
