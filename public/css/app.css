@@ -566,6 +566,9 @@ video {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
 }
+.mt-14 {
+  margin-top: 3.5rem;
+}
 .mt-5 {
   margin-top: 1.25rem;
 }
@@ -583,9 +586,6 @@ video {
 }
 .ml-5 {
   margin-left: 1.25rem;
-}
-.mt-14 {
-  margin-top: 3.5rem;
 }
 .block {
   display: block;
@@ -605,8 +605,8 @@ video {
 .hidden {
   display: none;
 }
-.h-\[500px\] {
-  height: 500px;
+.h-\[600px\] {
+  height: 600px;
 }
 .h-6 {
   height: 1.5rem;
@@ -616,9 +616,6 @@ video {
 }
 .h-96 {
   height: 24rem;
-}
-.h-\[600px\] {
-  height: 600px;
 }
 .h-72 {
   height: 18rem;
@@ -634,9 +631,6 @@ video {
 }
 .w-6 {
   width: 1.5rem;
-}
-.w-96 {
-  width: 24rem;
 }
 .max-w-md {
   max-width: 28rem;
@@ -665,17 +659,14 @@ video {
 .justify-between {
   justify-content: space-between;
 }
-.justify-around {
-  justify-content: space-around;
+.gap-5 {
+  gap: 1.25rem;
 }
 .gap-4 {
   gap: 1rem;
 }
 .gap-2 {
   gap: 0.5rem;
-}
-.gap-5 {
-  gap: 1.25rem;
 }
 .gap-3 {
   gap: 0.75rem;
@@ -694,11 +685,6 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
-}
-.space-y-2 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
 .space-y-4 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
@@ -727,9 +713,6 @@ video {
 }
 .rounded {
   border-radius: 0.25rem;
-}
-.rounded-sm {
-  border-radius: 0.125rem;
 }
 .border {
   border-width: 1px;
@@ -824,19 +807,19 @@ video {
 .p-5 {
   padding: 1.25rem;
 }
-.p-4 {
-  padding: 1rem;
-}
 .p-2 {
   padding: 0.5rem;
 }
-.py-5 {
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
+.p-4 {
+  padding: 1rem;
 }
 .py-10 {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
+}
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
 }
 .px-3 {
   padding-left: 0.75rem;
@@ -1127,10 +1110,6 @@ video {
 
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .md\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .md\:flex-row {
