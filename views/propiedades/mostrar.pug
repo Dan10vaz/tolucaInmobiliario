@@ -18,7 +18,7 @@ block contenido
             a(href="#" class="font-bold text-gray-600 text-sm ml-5") Estatus: 
                 span(class="font-normal")= propiedad.tipo.nombre
         
-        div(class="mt-5 md:flex md:gap-4")
+        div(class="mt-5 md:flex md:gap-4 md:items-start")
             div(class="md:w-2/3 bg-white shadow-2xl rounded-lg")
                 div(class=" carousel rounded-box")
                     each i in propiedad.imagenes
@@ -43,8 +43,8 @@ block contenido
                         p(class="text-gray-600 font-bold text-xs") Precio
                             span(class="text-gray-800 block text-lg")= propiedad.precio.nombre
 
-            div(class="md:w-1/3") 
-                h3(class="text-center py-10 leading-6 text-2xl font-bold text-gray-900") Ubicacion
+            div(class="md:w-1/3 bg-white shadow rounded-lg")  
+                h3(class="text-center py-3 leading-6 text-2xl font-bold text-gray-900") Ubicacion
 
                 div(class="h-96" id="mapa")
                     p(id="lat" class="hidden")= propiedad.lat
@@ -53,6 +53,23 @@ block contenido
                 div(class="p-5")
                     p(class="text-gray-600 font-bold text-xs") Direccion
                         span(id="calle" class="text-gray-800 block text-lg")= propiedad.calle
+
+                    if !esVendedor
+
+                        h3(class="text-2xl text-center my-10 font-extrabold text-gray-900") Vendedor 
+                        if usuario
+                            form(method="POST")
+                                input(type="hidden"  name="_csrf" value= csrfToken)
+
+                                div(class="space-y-5")
+                                    label(for="mensaje") Mensaje
+                                    textarea(id="mensaje" name="mensaje" class="w-full py-2 border-gray-300 rounded-lg shadow placeholder-gray-400" placeholder="Coloca tu mensaje aqui")
+
+                                    input(type="submit" value="Enviar Mensaje" class="bg-indigo-600 text-white font-bold uppercase text-sm w-full p-2 cursor-pointer")
+                        else 
+                            div(class="flex flex-col items-center justify-center gap-2")
+                                p(class="text-center") Si deseas contactar al vendedor
+                                a(href="/auth/crear-cuenta" class="text-indigo-600") debes crear una cuenta 
 
 block scripts
     script(src="https://cdn.tailwindcss.com")
