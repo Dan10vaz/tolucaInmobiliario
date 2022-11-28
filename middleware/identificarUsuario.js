@@ -11,3 +11,5 @@ const identificarUsuario = async (req, res, next) => {
 
     //Comprobar el token 
 };
+
+export default identificarUsuario;
