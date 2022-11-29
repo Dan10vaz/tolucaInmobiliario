@@ -46,9 +46,9 @@
             const url = '/api/propiedades'
             const respuesta = await fetch(url)
             propiedades = await respuesta.json()
-
-            mostrarPropiedades(propiedades);
-            console.log(propiedades);
+            const prop = propiedades.filter(propiedades => propiedades.publicado === true)
+            mostrarPropiedades(prop);
+            console.log(prop);
 
         } catch (error) {
             console.log(error);
@@ -88,15 +88,15 @@
 
     // FILTRAMOS POR 3 CATEGORIAS Y SE LAS PASAMOS A NUESTRO METODO DE FILTRARPROPIEDADES()
     const filtrarCategoria = (propiedad) => {
-        return filtros.categoria ? propiedad.categoriaId === filtros.categoria : propiedad;
+        return filtros.categoria ? propiedad.categoriaId === filtros.categoria && propiedad.publicado === true : propiedad;
     }
 
     const filtrarPrecio = (precio) => {
-        return filtros.precio ? precio.precioId === filtros.precio : precio;
+        return filtros.precio ? precio.precioId === filtros.precio && propiedad.publicado === true : precio;
     }
 
     const filtrarTipo = (tipo) => {
-        return filtros.tipo ? tipo.tipoId === filtros.tipo : tipo;
+        return filtros.tipo ? tipo.tipoId === filtros.tipo && propiedad.publicado === true : tipo;
     }
 
     obtenerPropiedades();
