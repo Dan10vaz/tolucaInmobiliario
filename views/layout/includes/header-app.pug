@@ -1,24 +1,32 @@
-header.bg-indigo-600.p-4.px-10
-        .container.mx-auto.flex.justify-between.items-center
-            a(href="/") 
-                h1.text-2xl.text-white.font-extrabold.text-center Toluca
-                    span.font-normal GrupoInmobiliario
             
-            nav(class="my-5 text-sm md:flex md:items-center md:gap-10 font-bold text-white hidden")
-                a(href="/auth/registro") Crear Cuenta
-                a(href="/auth/login") Iniciar Sesión
-                
-div(class=" py-5 hidden lg:block")
-    div(class="container mx-auto flex justify-between px-10")
-        nav(class="flex gap-4 items-center")
-            a(href="/categorias/1" class="text-sm font-bold p-2 rounded-lg duration-500 uppercase text-indigo-500 hover:text-white hover:bg-indigo-500") Casas  
-            a(href="/categorias/2" class="text-sm font-bold p-2 rounded-lg duration-500 uppercase text-indigo-500 hover:text-white hover:bg-indigo-500") Departamentos
-            a(href="/categorias/3" class="text-sm font-bold p-2 rounded-lg duration-500 uppercase text-indigo-500 hover:text-white hover:bg-indigo-500") Bodegas
-            a(href="/categorias/4" class="text-sm font-bold p-2 rounded-lg duration-500 uppercase text-indigo-500 hover:text-white hover:bg-indigo-500") Terrenos
-            a(href="/categorias/5" class="text-sm font-bold p-2 rounded-lg duration-500 uppercase text-indigo-500 hover:text-white hover:bg-indigo-500") Oficinas
-            a(href="/categorias/6" class="text-sm font-bold p-2 rounded-lg duration-500 uppercase text-indigo-500 hover:text-white hover:bg-indigo-500") Locales
+nav.flex.items-center.justify-between.flex-wrap.bg-indigo-600.p-6.flex.items-center.flex-shrink-0.text-white
+  a(href="/") 
+      h1(class="md:text-2xl").text-xl.text-white.font-extrabold.text-center Toluca
+        span.font-normal GrupoInmobiliario
+  .block(class='lg:hidden')
+    button.flex.items-center.px-3.py-2.border.rounded.text-teal-200.border-teal-400(id="boton" class='hover:text-white hover:border-white')
+      svg.fill-current.h-3.w-3(viewbox='0 0 20 20' xmlns='http://www.w3.org/2000/svg')
+        title Menu
+        path(d='M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z')
+  .w-full.block.flex-grow(class='lg:flex lg:items-center lg:w-auto')
+    .text-sm(class='lg:flex-grow')
+        div(id="menu" class="hidden")
+            a(href="/categorias/1" class="md:ml-5 md:hidden block mt-4 lg:inline-block lg:mt-0 mr-4 text-sm font-bold p-2 rounded-lg text-white duration-500 uppercase hover:bg-white hover:text-indigo-500") Casas  
+            a(href="/categorias/2" class="md:hidden block mt-4 lg:inline-block lg:mt-0 mr-4 text-sm font-bold p-2 rounded-lg text-white duration-500 uppercase hover:bg-white hover:text-indigo-500") Departamentos
+            a(href="/categorias/3" class="md:hidden block mt-4 lg:inline-block lg:mt-0 mr-4 text-sm font-bold p-2 rounded-lg text-white duration-500 uppercase hover:bg-white hover:text-indigo-500") Bodegas
+            a(href="/categorias/4" class="md:hidden block mt-4 lg:inline-block lg:mt-0 mr-4 text-sm font-bold p-2 rounded-lg text-white duration-500 uppercase hover:bg-white hover:text-indigo-500") Terrenos
+            a(href="/categorias/5" class="md:hidden block mt-4 lg:inline-block lg:mt-0 mr-4 text-sm font-bold p-2 rounded-lg text-white duration-500 uppercase hover:bg-white hover:text-indigo-500") Oficinas
+            a(href="/categorias/6" class="md:hidden block mt-4 lg:inline-block lg:mt-0 mr-4 text-sm font-bold p-2 rounded-lg text-white duration-500 uppercase hover:bg-white hover:text-indigo-500") Locales
+    div
+      a.inline-block.text-sm.px-4.py-2.leading-none.border.rounded.text-white.border-white.mt-4.mr-5(href='/auth/registro' class='hover:border-transparent hover:text-indigo-500 hover:bg-white lg:mt-0') Crear Cuenta
+      a.inline-block.text-sm.px-4.py-2.leading-none.border.rounded.text-white.border-white.mt-4(href='/auth/login' class='hover:border-transparent hover:text-indigo-500 hover:bg-white lg:mt-0') Iniciar Sesión
+
+div(class="py-5")
+    div(class="container mx-auto flex justify-center px-10")
         form(action="/buscador" method="POST" class="flex gap-3 items-center")
             input(type="hidden" name="_csrf" value=csrfToken)
             label(for="termino" class="text-sm uppercase font-bold text-indigo-500") Busqueda
             input(type="text" id="termino" name="termino" placeholder="Buscar Propiedades" class="p-2 rounded-lg shadow-2xl text-sm")
             input(type="submit" class="bg-indigo-600 hover:bg-indigo-400 rounded-lg text-white uppercase font-bold p-2 cursor-pointer text-sm" value="Buscar")
+
+script(src="/js/nav.js") 

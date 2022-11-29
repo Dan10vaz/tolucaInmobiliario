@@ -13,6 +13,7 @@ const formularioLogin = (req, res) => {
     })
 }
 
+
 const autenticar = async (req, res) => {
     //validamos el formulario
     await check('email').isEmail().withMessage('El email es obligatorio').run(req);
@@ -69,7 +70,7 @@ const autenticar = async (req, res) => {
         id: user.id,
         nombre: user.nombre,
     })
-    console.log(token)
+    /* console.log(token) */
     //almacenar en un cookie el token
     return res.cookie('_token', token, {
         httpOnly: true,
