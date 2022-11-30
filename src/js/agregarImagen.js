@@ -5,7 +5,7 @@ const token = document.querySelector('meta[name="csrf-token"]').getAttribute('co
 Dropzone.options.imagen = {
     dictDefaultMessage: "Arrastra las imagenes aquí",
     acceptedFiles: ".jpg, .jpeg, .png",
-    maxFilesize: 10000,
+    maxFilesize: 1000000000000000,
     maxFiles: 30,
     parallelUploads: 30,
     autoProcessQueue: false,
@@ -25,7 +25,7 @@ Dropzone.options.imagen = {
         })
         dropzone.on('queuecomplete', function () {
             if (dropzone.getActiveFiles().length == 0) {
-                /* window.location.href = '/mis-propiedades' */
+                window.location.href = '/mis-propiedades'
             }
         })
     }

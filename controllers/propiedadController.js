@@ -193,15 +193,15 @@ const almacenarImagen = async (req, res, next) => {
 
     try {
         //almacenar imagen y publicar propiedad
-        console.log(req.file)
+        /* console.log('-----alamacenando imagenes-----', req.file) */
         propiedad.publicado = 1
         const guardar = await Imagen.create({
             imagenes: req.file.filename,
             propiedadeId: propiedad.id
         })
-        console.log(guardar)
+        console.log('datos a guardad', guardar)
         await guardar.save()
-        await propiedad.save()
+        /* await propiedad.save() */
         next()
     } catch (error) {
         console.log(error)

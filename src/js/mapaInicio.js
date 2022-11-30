@@ -48,7 +48,7 @@
             propiedades = await respuesta.json()
             const prop = propiedades.filter(propiedades => propiedades.publicado === true)
             mostrarPropiedades(prop);
-            console.log(prop);
+            /* console.log(prop); */
 
         } catch (error) {
             console.log(error);
