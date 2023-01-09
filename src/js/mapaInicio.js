@@ -1,72 +1,71 @@
-(function () {
-    const lat = 19.2718459;
-    const lng = -99.6513658;
-    const mapa = L.map('mapa-inicio').setView([lat, lng], 13);
+; (function () {
+    const lat = 19.2718459
+    const lng = -99.6513658
+    const mapa = L.map('mapa-inicio').setView([lat, lng], 13)
 
-    let markers = new L.FeatureGroup().addTo(mapa);
+    let markers = new L.FeatureGroup().addTo(mapa)
 
-    let propiedades = [];
+    let propiedades = []
 
-    //Filtros 
+    //Filtros
     const filtros = {
         categoria: '',
         precio: '',
         tipo: '',
     }
 
-    const categoriasSelect = document.querySelector('#categorias');
-    const preciosSelect = document.querySelector('#precios');
-    const tiposSelect = document.querySelector('#tipos');
+    /*  console.log('filtros', filtros) */
 
+    const categoriasSelect = document.querySelector('#categorias')
+    const preciosSelect = document.querySelector('#precios')
+    const tiposSelect = document.querySelector('#tipos')
 
     //Filtrado de categorias, precios y tipos
 
-    categoriasSelect.addEventListener('change', e => {
-        filtros.categoria = +e.target.value;
-        filtrarPropiedades();
+    categoriasSelect.addEventListener('change', (e) => {
+        filtros.categoria = +e.target.value
+        filtrarPropiedades()
     })
 
-    preciosSelect.addEventListener('change', e => {
-        filtros.precio = +e.target.value;
-        filtrarPropiedades();
+    preciosSelect.addEventListener('change', (e) => {
+        filtros.precio = +e.target.value
+        filtrarPropiedades()
     })
 
-    tiposSelect.addEventListener('change', e => {
-        filtros.tipo = +e.target.value;
-        filtrarPropiedades();
+    tiposSelect.addEventListener('change', (e) => {
+        filtros.tipo = +e.target.value
+        filtrarPropiedades()
     })
-
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(mapa);
+        attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(mapa)
 
     const obtenerPropiedades = async () => {
         try {
             const url = '/api/propiedades'
             const respuesta = await fetch(url)
             propiedades = await respuesta.json()
-            const prop = propiedades.filter(propiedades => propiedades.publicado === true)
-            mostrarPropiedades(prop);
+            const prop = propiedades.filter(
+                (propiedades) => propiedades.publicado === true,
+            )
+            mostrarPropiedades(prop)
             /* console.log(prop); */
-
         } catch (error) {
-            console.log(error);
+            console.log(error)
         }
     }
 
-    const mostrarPropiedades = propiedades => {
-
+    const mostrarPropiedades = (propiedades) => {
         //Limpiar los markers previos
-        markers.clearLayers();
+        markers.clearLayers()
 
-        propiedades.forEach(propiedad => {
+        propiedades.forEach((propiedad) => {
             //Agregar pines a cada propiedad
             const marker = new L.marker([propiedad?.lat, propiedad?.lng], {
-                autoPan: true
-            })
-                .addTo(mapa)
-                .bindPopup(`
+                autoPan: true,
+            }).addTo(mapa).bindPopup(`
                     <p class="text-indigo-600 font-bold text-center">${propiedad.categoria.nombre} en ${propiedad.tipo.nombre}</p>
                     <h1 class=" text-xl font-extrabold uppercase my-2 text-center">${propiedad?.titulo}</h1>
                     <img src="/uploads/${propiedad?.imagenes[0].imagenes}" alt="Imagen de la propiedad ${propiedad.titulo}">
@@ -75,29 +74,36 @@
                 `)
 
             markers.addLayer(marker)
-        });
+        })
     }
 
     const filtrarPropiedades = () => {
-        const resultado = propiedades.filter(filtrarCategoria).filter(filtrarPrecio).filter(filtrarTipo)
+        const resultado = propiedades
+            .filter(filtrarCategoria)
+            .filter(filtrarPrecio)
+            .filter(filtrarTipo)
 
-        /* console.log(resultado); */
+        /*  console.log('resultado', resultado); */
 
-        mostrarPropiedades(resultado);
+        mostrarPropiedades(resultado)
     }
 
     // FILTRAMOS POR 3 CATEGORIAS Y SE LAS PASAMOS A NUESTRO METODO DE FILTRARPROPIEDADES()
     const filtrarCategoria = (propiedad) => {
-        return filtros.categoria ? propiedad.categoriaId === filtros.categoria && propiedad.publicado === true : propiedad;
+        /*   console.log("Datos de propiedad", propiedad); */
+        return filtros.categoria
+            ? propiedad.categoriaId === filtros.categoria && propiedad.publicado === true : propiedad
     }
 
     const filtrarPrecio = (precio) => {
-        return filtros.precio ? precio.precioId === filtros.precio && propiedad.publicado === true : precio;
+        return filtros.precio
+            ? precio.precioId === filtros.precio : precio
     }
 
     const filtrarTipo = (tipo) => {
-        return filtros.tipo ? tipo.tipoId === filtros.tipo && propiedad.publicado === true : tipo;
+        return filtros.tipo
+            ? tipo.tipoId === filtros.tipo : tipo
     }
 
-    obtenerPropiedades();
+    obtenerPropiedades()
 })()
