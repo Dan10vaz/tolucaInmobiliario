@@ -75,7 +75,6 @@ const crear = async (req, res) => {
     //consultar las categorias, precios y los tipos de propiedades
     const [categorias, tipos] = await Promise.all([
         Categoria.findAll(),
-        /* Precio.findAll(), */
         Tipo.findAll()
     ]);
 
@@ -83,7 +82,6 @@ const crear = async (req, res) => {
         pagina: 'Crear Propiedad',
         csrfToken: req.csrfToken(),
         categorias,
-        /*  precios, */
         tipos,
         datos: {}
     });
@@ -96,9 +94,8 @@ const guardar = async (req, res) => {
 
     if (!resultado.isEmpty()) {
         //consultar las categorias, precios y los tipos de propiedades
-        const [categorias, precios, tipos] = await Promise.all([
+        const [categorias, tipos] = await Promise.all([
             Categoria.findAll(),
-            /*  Precio.findAll(), */
             Tipo.findAll()
         ]);
 
@@ -106,7 +103,6 @@ const guardar = async (req, res) => {
             pagina: 'Crear Propiedad',
             csrfToken: req.csrfToken(),
             categorias,
-            precios,
             tipos,
             errores: resultado.array(),
             datos: req.body
@@ -119,6 +115,19 @@ const guardar = async (req, res) => {
 
     const { id: usuarioId } = req.usuario;
     try {
+        /*  console.log("precio", precio); */
+        var propiedadPrecio = precio
+        /*  console.log('propediedad precio', propiedadPrecio) */
+        var numberPrecio = Number(propiedadPrecio)
+        /*  console.log('numberPrecio', numberPrecio) */
+        var format = numberPrecio.toLocaleString("en", {
+            style: "currency",
+            currency: "MXN",
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+        })
+        /* console.log('format', format) */
+
         const propiedadGuardada = await Propiedad.create({
             titulo,
             descripcion,
@@ -129,11 +138,11 @@ const guardar = async (req, res) => {
             lat,
             lng,
             categoriaId,
-            precio,
+            precio: format,
             tipoId,
             usuarioId,
         });
-        console.log('propiedadguardada', propiedadGuardada)
+        /* console.log('propiedadguardada', propiedadGuardada) */
 
         const { id } = propiedadGuardada;
 
@@ -224,19 +233,30 @@ const editar = async (req, res) => {
         return res.redirect('/mis-propiedades')
     }
     //consultar las categorias, precios y los tipos de propiedades
-    const [categorias, precios, tipos] = await Promise.all([
+    const [categorias, tipos] = await Promise.all([
         Categoria.findAll(),
-        /* Precio.findAll(), */
         Tipo.findAll()
     ]);
+
+    var precio = propiedad.precio
+    /* console.log('precio', precio) */
+    var sinMX = precio.replace('MX', '')
+    /*   console.log('sin signo pesos', sinSignoPesos) */
+    var sinPesos = sinMX.replace('$', '')
+    /*   console.log('sin coma', sinComa) */
+    var sinComa = sinPesos.replace(',', '')
+    var sinComaDos = sinComa.replace(',', '')
+    var format = Number(sinComaDos)
+    /* console.log(format) */
+
 
     res.render('propiedades/editar', {
         pagina: `Editar Propiedad: ${propiedad.titulo}`,
         csrfToken: req.csrfToken(),
         categorias,
-        /* precios, */
         tipos,
-        datos: propiedad
+        datos: propiedad,
+        precio: format
     });
 }
 
@@ -248,9 +268,8 @@ const guardarCambios = async (req, res) => {
 
     if (!resultado.isEmpty()) {
         //consultar las categorias, precios y los tipos de propiedades
-        const [categorias, precios, tipos] = await Promise.all([
+        const [categorias, tipos] = await Promise.all([
             Categoria.findAll(),
-            /* Precio.findAll(), */
             Tipo.findAll()
         ])
 
@@ -258,7 +277,6 @@ const guardarCambios = async (req, res) => {
             pagina: 'Editar Propiedad',
             csrfToken: req.csrfToken(),
             categorias,
-            /* precios, */
             tipos,
             errores: resultado.array(),
             datos: req.body
@@ -282,13 +300,28 @@ const guardarCambios = async (req, res) => {
 
     //reescribir los datos y actualizarlos
     try {
-        const { titulo, descripcion, categoria: categoriaId, precio: precioId, tipo: tipoId, habitaciones, estacionamiento, wc, calle, lat, lng } = req.body;
 
+
+
+        const { titulo, descripcion, categoria: categoriaId, precio, tipo: tipoId, habitaciones, estacionamiento, wc, calle, lat, lng } = req.body;
+
+        /*  console.log("precio", precio); */
+        var propiedadPrecio = precio;
+        /*  console.log('propediedad precio', propiedadPrecio) */
+        var numberPrecio = Number(propiedadPrecio)
+        /*  console.log('numberPrecio', numberPrecio) */
+        var format = numberPrecio.toLocaleString("en", {
+            style: "currency",
+            currency: "MXN",
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+        })
+        /* console.log('format', format) */
         propiedad.set({
             titulo,
             descripcion,
             categoriaId,
-            precioId,
+            precio: format,
             tipoId,
             habitaciones,
             estacionamiento,
@@ -384,6 +417,16 @@ const mostrarPropiedad = async (req, res) => {
     if (!propiedad || !propiedad.publicado) {
         return res.redirect('/404')
     }
+
+    /* var propiedadPrecio = propiedad.precio
+    console.log('propediedad precio', propiedadPrecio)
+    var numberPrecio = Number(propiedadPrecio)
+    console.log('numberPrecio', numberPrecio)
+    var format = numberPrecio.toLocaleString("en", {
+        style: "currency",
+        currency: "MXN"
+    })
+       console.log('format', format) */
 
     res.render('propiedades/mostrar', {
         propiedad,
