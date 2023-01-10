@@ -14,7 +14,7 @@
         tipo: '',
     }
 
-    /*  console.log('filtros', filtros) */
+    console.log('filtros', filtros)
 
     const categoriasSelect = document.querySelector('#categorias')
     const preciosSelect = document.querySelector('#precios')
@@ -29,11 +29,13 @@
 
     preciosSelect.addEventListener('change', (e) => {
         filtros.precio = +e.target.value
+        console.log(filtros.precio)
         filtrarPropiedades()
     })
 
     tiposSelect.addEventListener('change', (e) => {
         filtros.tipo = +e.target.value
+        console.log(filtros.tipo)
         filtrarPropiedades()
     })
 
@@ -50,6 +52,7 @@
             const prop = propiedades.filter(
                 (propiedades) => propiedades.publicado === true,
             )
+            console.log('propiedades', prop)
             mostrarPropiedades(prop)
             /* console.log(prop); */
         } catch (error) {
@@ -69,7 +72,7 @@
                     <p class="text-indigo-600 font-bold text-center">${propiedad.categoria.nombre} en ${propiedad.tipo.nombre}</p>
                     <h1 class=" text-xl font-extrabold uppercase my-2 text-center">${propiedad?.titulo}</h1>
                     <img src="/uploads/${propiedad?.imagenes[0].imagenes}" alt="Imagen de la propiedad ${propiedad.titulo}">
-                    <p class="text-gray-600 font-bold text-center">${propiedad.precio.nombre}</p>
+                    <p class="text-gray-600 font-bold text-center">${propiedad.precio}</p>
                     <a href="/propiedad/${propiedad.id}" class="bg-indigo-500 hover:bg-indigo-700 block py-2 text-center font-bold uppercase">Ver Propiedad</a>
                 `)
 
@@ -83,26 +86,22 @@
             .filter(filtrarPrecio)
             .filter(filtrarTipo)
 
-        /*  console.log('resultado', resultado); */
+        console.log('resultado', resultado);
 
         mostrarPropiedades(resultado)
     }
 
     // FILTRAMOS POR 3 CATEGORIAS Y SE LAS PASAMOS A NUESTRO METODO DE FILTRARPROPIEDADES()
     const filtrarCategoria = (propiedad) => {
-        /*   console.log("Datos de propiedad", propiedad); */
-        return filtros.categoria
-            ? propiedad.categoriaId === filtros.categoria && propiedad.publicado === true : propiedad
+        return filtros.categoria ? propiedad.categoriaId === filtros.categoria && propiedad.publicado === true : propiedad
     }
 
-    const filtrarPrecio = (precio) => {
-        return filtros.precio
-            ? precio.precioId === filtros.precio : precio
+    const filtrarPrecio = (propiedad) => {
+        return filtros.precio ? propiedad.precio == filtros.precio : propiedad
     }
 
     const filtrarTipo = (tipo) => {
-        return filtros.tipo
-            ? tipo.tipoId === filtros.tipo : tipo
+        return filtros.tipo ? tipo.tipoId === filtros.tipo : tipo
     }
 
     obtenerPropiedades()

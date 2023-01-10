@@ -44,6 +44,10 @@ const Propiedad = db.define('propiedades', {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false
+    },
+    precio: {
+        type: DataTypes.STRING(30),
+        allowNull: false
     }
 });
 

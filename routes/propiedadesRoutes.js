@@ -15,7 +15,7 @@ router.post('/propiedades/crear',
     body('descripcion').notEmpty().withMessage('La descripción no puede estar vacía')
         .isLength({ mix: 200 }).withMessage('La descripción no puede tener más de 200 caracteres'),
     body('categoria').isNumeric().withMessage('Selecciona una categoría'),
-    body('precio').isNumeric().withMessage('Selecciona un rango de precios'),
+    body('precio').isNumeric().withMessage('Escribre un precio'),
     body('tipo').isNumeric().withMessage('Selecciona un tipo'),
     body('habitaciones').isNumeric().withMessage('Selecciona un número de habitaciones'),
     body('estacionamiento').isNumeric().withMessage('Selecciona un número de estacionamientos'),

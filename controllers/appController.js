@@ -3,7 +3,7 @@ import { Precio, Categoria, Propiedad, Tipo, Imagen } from '../models/index.js';
 
 const inicio = async (req, res) => {
 
-    const [categorias, precios, tipos, casas, departamentos, bodegas, terrenos] = await Promise.all([
+    const [categorias, precios, tipos, casas, departamentos, bodegas, terrenos, propiedad] = await Promise.all([
         Categoria.findAll({ raw: true }),
         Precio.findAll({ raw: true }),
         Tipo.findAll({ raw: true }),
@@ -13,10 +13,10 @@ const inicio = async (req, res) => {
                 categoriaId: 1
             },
             include: [
-                {
+                /* {
                     model: Precio,
                     as: 'precio'
-                },
+                }, */
                 {
                     model: Imagen,
                     as: 'imagenes'
@@ -32,10 +32,10 @@ const inicio = async (req, res) => {
                 categoriaId: 2
             },
             include: [
-                {
+                /* {
                     model: Precio,
                     as: 'precio'
-                },
+                }, */
                 {
                     model: Imagen,
                     as: 'imagenes'
@@ -51,10 +51,10 @@ const inicio = async (req, res) => {
                 categoriaId: 3
             },
             include: [
-                {
+                /* {
                     model: Precio,
                     as: 'precio'
-                },
+                }, */
                 {
                     model: Imagen,
                     as: 'imagenes'
@@ -70,10 +70,10 @@ const inicio = async (req, res) => {
                 categoriaId: 4
             },
             include: [
-                {
+                /* {
                     model: Precio,
                     as: 'precio'
-                },
+                }, */
                 {
                     model: Imagen,
                     as: 'imagenes'
@@ -87,6 +87,7 @@ const inicio = async (req, res) => {
 
     res.render('inicio', {
         pagina: 'Inicio',
+        propiedad,
         categorias,
         precios,
         tipos,
@@ -114,7 +115,7 @@ const categoria = async (req, res) => {
             categoriaId: id
         },
         include: [
-            { model: Precio, as: 'precio' },
+            /* { model: Precio, as: 'precio' }, */
             { model: Imagen, as: 'imagenes' },
         ]
     })
@@ -150,7 +151,7 @@ const buscador = async (req, res) => {
             }
         },
         include: [
-            { model: Precio, as: 'precio' },
+            /* { model: Precio, as: 'precio' }, */
             { model: Imagen, as: 'imagenes' },
         ]
     })

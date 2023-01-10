@@ -13,10 +13,10 @@ block contenido
         h1(id="titulo" class="text-4xl my-3 font-extrabold text-center")= propiedad.titulo
 
         div
-            a(href="#" class="font-bold text-gray-600 text-sm") Categoria: 
+            a(href="#" class="font-bold text-indigo-600 text-sm") Categoria: 
                 span(class="font-normal")= propiedad.categoria.nombre
 
-            a(href="#" class="font-bold text-gray-600 text-sm ml-5") Estatus: 
+            a(href="#" class="font-bold text-indigo-600 text-sm ml-5") Estatus: 
                 span(class="font-normal")= propiedad.tipo.nombre
         
         div(class="mt-5 md:flex md:gap-4 md:items-start")
@@ -26,23 +26,23 @@ block contenido
                         div(class="carousel-item")
                             img(class="object-cover h-96 w-full" src=`/uploads/${i.imagenes}`)
 
-                div(class="px-5 py-3 space-y-5")
+                div(class="px-5 py-3 space-y-5  text-center")
                     p= propiedad.descripcion
 
-                    h2(class="text-2xl leading-6 font-bold text-gray-900") Informacion Propiedad
+                    h2(class="text-2xl leading-6 font-bold text-gray-900 text-center") Informacion de la Propiedad
 
-                    div(class="grid grid-cols-1 md:grid-cols-2")
-                        p(class="text-gray-600 font-bold text-xs") WC
+                    div(class="grid grid-cols-2 md:grid-cols-4")
+                        p(class="text-indigo-600 font-bold text-xs text-center") Baños
                             span(class="text-gray-800 block text-lg")= propiedad.wc
                         
-                        p(class="text-gray-600 font-bold text-xs") Habitaciones
+                        p(class="text-indigo-600 font-bold text-xs text-center") Habitaciones
                             span(class="text-gray-800 block text-lg")= propiedad.habitaciones
 
-                        p(class="text-gray-600 font-bold text-xs") Estacionamiento
+                        p(class="text-indigo-600 font-bold text-xs text-center") Estacionamiento
                             span(class="text-gray-800 block text-lg")= propiedad.estacionamiento
 
-                        p(class="text-gray-600 font-bold text-xs") Precio
-                            span(class="text-gray-800 block text-lg")= propiedad.precio.nombre
+                        p(class="text-indigo-600 font-bold text-xs text-center") Precio
+                            span(class="text-gray-800 block text-lg")= `$${propiedad.precio}`
 
             div(class="md:w-1/3 bg-white shadow rounded-lg")  
                 h3(class="text-center py-3 leading-6 text-2xl font-bold text-gray-900") Ubicacion

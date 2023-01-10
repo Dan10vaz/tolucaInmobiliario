@@ -6,7 +6,7 @@ import tipos from './tipos.js';
 import Tipo from '../models/Tipo.js';
 
 import db from "../config/dataBase.js";
-import { Categoria, Precio, Usuario } from "../models/index.js"
+import { Precio, Categoria, Usuario } from "../models/index.js"
 
 const importarDatos = async () => {
     try {
@@ -33,7 +33,7 @@ const eliminarDatos = async () => {
     try {
         await Promise.all([
             Categoria.destroy({ where: {}, truncate: true }),
-            Precio.destroy({ where: {}, truncate: true }),
+            /* Precio.destroy({ where: {}, truncate: true }), */
             Tipo.destroy({ where: {}, truncate: true })
         ]);
         console.log("Datos eliminados");

@@ -42,10 +42,6 @@ const admin = async (req, res) => {
                         as: 'categoria'
                     },
                     {
-                        model: Precio,
-                        as: 'precio'
-                    },
-                    {
                         model: Mensaje,
                         as: 'mensajes'
                     }
@@ -77,9 +73,9 @@ const admin = async (req, res) => {
 //Formulario de creación de propiedades
 const crear = async (req, res) => {
     //consultar las categorias, precios y los tipos de propiedades
-    const [categorias, precios, tipos] = await Promise.all([
+    const [categorias, tipos] = await Promise.all([
         Categoria.findAll(),
-        Precio.findAll(),
+        /* Precio.findAll(), */
         Tipo.findAll()
     ]);
 
@@ -87,7 +83,7 @@ const crear = async (req, res) => {
         pagina: 'Crear Propiedad',
         csrfToken: req.csrfToken(),
         categorias,
-        precios,
+        /*  precios, */
         tipos,
         datos: {}
     });
@@ -102,7 +98,7 @@ const guardar = async (req, res) => {
         //consultar las categorias, precios y los tipos de propiedades
         const [categorias, precios, tipos] = await Promise.all([
             Categoria.findAll(),
-            Precio.findAll(),
+            /*  Precio.findAll(), */
             Tipo.findAll()
         ]);
 
@@ -116,8 +112,10 @@ const guardar = async (req, res) => {
             datos: req.body
         })
     }
+
     //crear registro
-    const { titulo, descripcion, categoria: categoriaId, precio: precioId, tipo: tipoId, habitaciones, estacionamiento, wc, calle, lat, lng } = req.body;
+    const { titulo, descripcion, categoria: categoriaId, precio, tipo: tipoId, habitaciones, estacionamiento, wc, calle, lat, lng } = req.body;
+    console.log('request', req.body)
 
     const { id: usuarioId } = req.usuario;
     try {
@@ -131,10 +129,11 @@ const guardar = async (req, res) => {
             lat,
             lng,
             categoriaId,
-            precioId,
+            precio,
             tipoId,
             usuarioId,
         });
+        console.log('propiedadguardada', propiedadGuardada)
 
         const { id } = propiedadGuardada;
 
@@ -199,7 +198,7 @@ const almacenarImagen = async (req, res, next) => {
             imagenes: req.file.filename,
             propiedadeId: propiedad.id
         })
-        console.log('datos a guardad', guardar)
+        console.log('datos a guardar:', guardar)
         await guardar.save()
         /* await propiedad.save() */
         next()
@@ -227,7 +226,7 @@ const editar = async (req, res) => {
     //consultar las categorias, precios y los tipos de propiedades
     const [categorias, precios, tipos] = await Promise.all([
         Categoria.findAll(),
-        Precio.findAll(),
+        /* Precio.findAll(), */
         Tipo.findAll()
     ]);
 
@@ -235,7 +234,7 @@ const editar = async (req, res) => {
         pagina: `Editar Propiedad: ${propiedad.titulo}`,
         csrfToken: req.csrfToken(),
         categorias,
-        precios,
+        /* precios, */
         tipos,
         datos: propiedad
     });
@@ -251,7 +250,7 @@ const guardarCambios = async (req, res) => {
         //consultar las categorias, precios y los tipos de propiedades
         const [categorias, precios, tipos] = await Promise.all([
             Categoria.findAll(),
-            Precio.findAll(),
+            /* Precio.findAll(), */
             Tipo.findAll()
         ])
 
@@ -259,7 +258,7 @@ const guardarCambios = async (req, res) => {
             pagina: 'Editar Propiedad',
             csrfToken: req.csrfToken(),
             categorias,
-            precios,
+            /* precios, */
             tipos,
             errores: resultado.array(),
             datos: req.body
@@ -376,7 +375,6 @@ const mostrarPropiedad = async (req, res) => {
     //comprobamos que la propiedad exista
     const propiedad = await Propiedad.findByPk(id, {
         include: [
-            { model: Precio, as: 'precio' },
             { model: Categoria, as: 'categoria' },
             { model: Tipo, as: 'tipo' },
             { model: Imagen, as: 'imagenes' },
@@ -403,7 +401,6 @@ const enviarMensaje = async (req, res) => {
     //comprobamos que la propiedad exista
     const propiedad = await Propiedad.findByPk(id, {
         include: [
-            { model: Precio, as: 'precio' },
             { model: Categoria, as: 'categoria' },
             { model: Tipo, as: 'tipo' },
             { model: Imagen, as: 'imagenes' },

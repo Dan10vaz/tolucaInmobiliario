@@ -6,8 +6,8 @@ import Imagen from "./Imagen.js";
 import Usuario from "./Usuario.js";
 import Mensaje from "./Mensaje.js";
 
-
-Propiedad.belongsTo(Precio, { foreignKey: 'precioId' });
+/* 
+Propiedad.belongsTo(Precio, { foreignKey: 'precioId' }); */
 Propiedad.belongsTo(Categoria, { foreignKey: 'categoriaId' });
 Propiedad.belongsTo(Tipo, { foreignKey: 'tipoId' });
 Propiedad.belongsTo(Usuario, { foreignKey: 'usuarioId' });
