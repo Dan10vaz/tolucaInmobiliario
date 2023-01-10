@@ -2,12 +2,13 @@ div(class="bg-white shadow rounded-lg")
     img(class="object-cover h-72 w-full" src=`/uploads/${propiedad.imagenes[0].imagenes}`, alt=`imagen casa ${propiedad.titulo}`)
     div(class="p-5 space-y-4")
         h3(class="text-2xl font-bold")= propiedad.titulo
-        p(class="text-sm text-gray-700") Habitaciones: 
-            span(class="text-gray-800 font-bold")= propiedad.habitaciones
-        p(class="text-sm text-gray-700") Estacionamientos: 
-            span(class="text-gray-800 font-bold")= propiedad.estacionamiento
-        p(class="text-sm text-gray-700") WC: 
-            span(class="text-gray-800 font-bold")= propiedad.wc
-        p(class="text-sm text-gray-700") Precio: 
-            span(class="text-gray-800 font-bold")= propiedad.precio
+        div(class="grid grid-cols-2 gap-5")
+            p(class="text-indigo-600 font-bold text-sm text-center") Habitaciones: 
+                span(class="text-gray-800 font-bold")= propiedad.habitaciones
+            p(class="text-indigo-600 font-bold text-sm text-center") Estacionamientos: 
+                span(class="text-gray-800 font-bold")= propiedad.estacionamiento
+            p(class="text-indigo-600 font-bold text-sm text-center") Baños: 
+                span(class="text-gray-800 font-bold")= propiedad.wc
+            p(class="text-indigo-600 font-bold text-sm text-center") Precio: 
+                span(class="text-gray-800 font-bold")= propiedad.precio
         a(href=`/propiedad/${propiedad.id}` class="bg-indigo-500 hover:bg-indigo-700 w-full text-center block font-bold text-white p-2 uppercase rounded") Ver Propiedad 
