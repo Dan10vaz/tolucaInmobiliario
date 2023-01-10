@@ -96,6 +96,7 @@ const registrar = async (req, res) => {
     //validacion
     await check('nombre').notEmpty().withMessage('El Nombre no puede ir vacio').run(req);
     await check('email').isEmail().withMessage('No es un email valido').run(req);
+    await check('telefono').isMobilePhone().withMessage('No es un telefono valido').run(req);
     await check('password').isLength({ min: 6 }).withMessage('El password debe tener al menos 6 caracteres').run(req);
     await check('repetir_password').equals(req.body.password).withMessage('Los passwords no coinciden').run(req);
     let resultado = validationResult(req)
@@ -111,12 +112,13 @@ const registrar = async (req, res) => {
             usuario: {
                 nombre: req.body.nombre,
                 email: req.body.email,
+                telefono: req.body.telefono,
             }
         })
     }
 
     //Extraemos los datos del formulario
-    const { nombre, email, password } = req.body;
+    const { nombre, email, telefono, password } = req.body;
 
     // Verificamos que el usuario no este duplicado
     const userExists = await Usuario.findOne({ where: { email } })
@@ -130,6 +132,7 @@ const registrar = async (req, res) => {
             usuario: {
                 nombre: req.body.nombre,
                 email: req.body.email,
+                telefono: req.body.telefono,
             }
         })
     }
@@ -137,6 +140,7 @@ const registrar = async (req, res) => {
     const user = await Usuario.create({
         nombre,
         email,
+        telefono,
         password,
         token: generateId(),
     })

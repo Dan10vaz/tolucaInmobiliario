@@ -96,7 +96,7 @@ const guardar = async (req, res) => {
         //consultar las categorias, precios y los tipos de propiedades
         const [categorias, tipos] = await Promise.all([
             Categoria.findAll(),
-            Tipo.findAll()
+            Tipo.findAll(),
         ]);
 
         return res.render('propiedades/crear', {
@@ -301,8 +301,6 @@ const guardarCambios = async (req, res) => {
     //reescribir los datos y actualizarlos
     try {
 
-
-
         const { titulo, descripcion, categoria: categoriaId, precio, tipo: tipoId, habitaciones, estacionamiento, wc, calle, lat, lng } = req.body;
 
         /*  console.log("precio", precio); */
@@ -404,6 +402,7 @@ const cambiarEstado = async (req, res) => {
 // Muestra una propiedad
 const mostrarPropiedad = async (req, res) => {
     const { id } = req.params;
+    /* console.log('id---------------------------------------------', id) */
 
     //comprobamos que la propiedad exista
     const propiedad = await Propiedad.findByPk(id, {
@@ -414,22 +413,17 @@ const mostrarPropiedad = async (req, res) => {
         ]
     })
 
+    const usuarioId = await Usuario.findByPk(propiedad.usuarioId);
+    /* console.log('-------usuarioId---------:', usuarioId) */
+
+
     if (!propiedad || !propiedad.publicado) {
         return res.redirect('/404')
     }
 
-    /* var propiedadPrecio = propiedad.precio
-    console.log('propediedad precio', propiedadPrecio)
-    var numberPrecio = Number(propiedadPrecio)
-    console.log('numberPrecio', numberPrecio)
-    var format = numberPrecio.toLocaleString("en", {
-        style: "currency",
-        currency: "MXN"
-    })
-       console.log('format', format) */
-
     res.render('propiedades/mostrar', {
         propiedad,
+        usuarioId,
         pagina: propiedad.titulo,
         csrfToken: req.csrfToken(),
         usuario: req.usuario,

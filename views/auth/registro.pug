@@ -16,12 +16,16 @@ block contenido
                 form.space-y-5(method="POST" action="/auth/registro" novalidate)
                     input(type="hidden" name="_csrf" value=csrfToken)
                     div
-                        label.block.text-sm.text-gray-600.mb-2.font-bold(for="nombre") Escribe tu Nombre:
-                        input#nombre.w-full.px-3.py-2uppercase.border.border-gray-400.rounded-md.placeholder-gray-600.text-center(placeholder="Ej: Juan Pérez" type="text" name="nombre" value= usuario ? usuario.nombre : "")
+                        label.block.text-sm.uppercase.text-gray-600.mb-2.font-bold(for="nombre") Escribe tu Nombre:
+                        input#nombre.w-full.px-3.py-2.border.border-gray-400.rounded-md.placeholder-gray-600.text-center(placeholder="Ej: Juan Pérez" type="text" name="nombre" value= usuario ? usuario.nombre : "")
                        
                     div
                         label.block.text-sm.uppercase.text-gray-600.mb-2.font-bold(for="email") Email de Registro:
                         input#email.w-full.px-3.py-2.border.border-gray-400.rounded-md.placeholder-gray-600.text-center(placeholder="Ej: juanp10@hotmail.com" type="email" name="email" value= usuario ? usuario.email : "")
+
+                    div
+                        label.block.text-sm.uppercase.text-gray-600.mb-2.font-bold(for="telefono") Telefono de Registro:
+                        input#telefono.w-full.px-3.py-2.border.border-gray-400.rounded-md.placeholder-gray-600.text-center(placeholder="5613117007" type="telefono" name="telefono" value= usuario ? usuario.telefono : "")    
                 
                     div
                         label.block.text-sm.uppercase.text-gray-600.mb-2.font-bold(for="password") Password:

@@ -85,25 +85,6 @@ const inicio = async (req, res) => {
         })
     ]);
 
-    var propiedadPrecio = casas
-    console.log('propediedad precio', propiedadPrecio)
-    /* var numberPrecio = Number(propiedadPrecio) */
-    /*  console.log('numberPrecio', numberPrecio) */
-    /* var format = numberPrecio.toLocaleString("en", {
-        style: "currency",
-        currency: "MXN" */
-    /*   console.log('format', format) */
-
-
-    for (let index = 0; index < propiedadPrecio.length; index++) {
-        const element = propiedadPrecio[index].precio;
-        console.log('precio desde for', element);
-        const numberPrecio = Number(element);
-        console.log('numberPrecio', numberPrecio);
-        var formateoPrecio = numberPrecio.toLocaleString("en");
-        console.log('formateoPrecio', formateoPrecio)
-    }
-
     res.render('inicio', {
         pagina: 'Inicio',
         propiedad,
@@ -115,7 +96,6 @@ const inicio = async (req, res) => {
         bodegas,
         terrenos,
         csrfToken: req.csrfToken(),
-        formateoPrecio
     });
 };
 
