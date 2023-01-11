@@ -7,7 +7,6 @@ export default {
         mostrarMapa: './src/js/mostrarMapa.js',
         mapaInicio: './src/js/mapaInicio.js',
         cambiarEstado: './src/js/cambiarEstado.js',
-        nav: './src/js/nav.js',
     },
     output: {
         filename: '[name].js',

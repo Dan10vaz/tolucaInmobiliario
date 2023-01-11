@@ -5,7 +5,8 @@ header.bg-indigo-600.p-4
                     span.font-normal GrupoInmobiliario
             
             nav(class="my-5 text-sm md:flex md:items-center md:gap-10 font-bold text-white hidden")
-                a(href="/mis-propiedades") Mis Propiedades
+                a.inline-block.text-sm.px-4.py-2.leading-none.border.rounded.text-white.border-white.mt-4(class="hover:border-transparent hover:text-indigo-500 hover:bg-white lg:mt-0 mr-5" href="/mis-propiedades") Mis Propiedades
                 form(action='/auth/cerrar-sesion' method="POST")
                     input(type="hidden" name="_csrf" value=csrfToken)
                     input(type="submit" class="bg-indigo-800 py-2 px-10 rounded-lg" value="Cerrar Sesion") 
+                    

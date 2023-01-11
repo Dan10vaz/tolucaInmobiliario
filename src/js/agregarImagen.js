@@ -3,12 +3,12 @@ import { Dropzone } from "dropzone";
 const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 
 Dropzone.options.imagen = {
-    dictDefaultMessage: "Arrastra las imagenes aquí",
+    dictDefaultMessage: "Arrastra las imagenes aquí o presiona aquí",
     acceptedFiles: ".jpg, .jpeg, .png",
     maxFilesize: 1000000000000000,
     maxFiles: 30,
     parallelUploads: 30,
-    autoProcessQueue: false,
+    autoProcessQueue: true,
     addRemoveLinks: true,
     dictRemoveFile: 'Eliminar',
     dictMaxFilesExceeded: 'El limite es 30 fotos',
@@ -21,12 +21,13 @@ Dropzone.options.imagen = {
         const btnPublicar = document.querySelector('#publicar')
 
         btnPublicar.addEventListener('click', function () {
-            dropzone.processQueue()
+            window.location.href = '/mis-propiedades'
+            /* dropzone.processQueue() */
         })
-        dropzone.on('queuecomplete', function () {
+        /* dropzone.on('queuecomplete', function () {
             if (dropzone.getActiveFiles().length == 0) {
                 window.location.href = '/mis-propiedades'
             }
-        })
+        }) */
     }
 }

@@ -1,14 +1,19 @@
             
 nav.flex.items-center.justify-between.flex-wrap.bg-indigo-600.p-6.flex.items-center.flex-shrink-0.text-white
     a(href="/") 
-        h1(class="md:text-2xl").text-xl.text-white.font-extrabold.text-center Toluca
+        h1(class="md:text-2xl ml-16 md:ml-0").text-xl.text-white.font-extrabold.text-center Toluca
             span.font-normal GrupoInmobiliario
+    
+                    
   
     div
         //-a.inline-block.text-sm.px-4.py-2.leading-none.border.rounded.text-white.border-white.mt-4.mr-5(href='/auth/registro' class='hover:border-transparent hover:text-indigo-500 hover:bg-white lg:mt-0') Crear Cuenta
+        //-a.inline-block.text-sm.px-4.py-2.leading-none.border.rounded.text-white.border-white.mt-4(class="hover:border-transparent hover:text-indigo-500 hover:bg-white lg:mt-0 mr-5" href="/") Home
+        a.inline-block.text-sm.px-4.py-2.leading-none.border.rounded.text-white.border-white.mt-4(class="hover:border-transparent hover:text-indigo-500 hover:bg-white lg:mt-0 mr-5 ml-12 md:ml-0" href="/mis-propiedades") Mis Propiedades
         a.inline-block.text-sm.px-4.py-2.leading-none.border.rounded.text-white.border-white.mt-4(href='/auth/login' class='hover:border-transparent hover:text-indigo-500 hover:bg-white lg:mt-0') Iniciar Sesión
+       
+div(class="text-center grid grid-cols-1 md:gap-5 md:grid-cols-3 lg:grid-cols-6 lg:gap-0 m-3")
 
-div(class="text-center grid grid-cols-1 md:gap-5 md:grid-cols-3 lg:grid-cols-6 lg:gap-0 m-5")
     a(href="/categorias/1" class="mt-4 lg:mt-0 mr-4 text-sm font-bold p-2 rounded-lg text-indigo-600 duration-500 uppercase hover:bg-indigo-500 hover:text-white") Casas  
 
     a(href="/categorias/2" class="mt-4 lg:mt-0 mr-4 text-sm font-bold p-2 rounded-lg text-indigo-600 duration-500 uppercase hover:bg-indigo-500 hover:text-white") Departamentos
@@ -33,3 +38,4 @@ div(class="py-5")
 
 
 script(src="/js/nav.js") 
+

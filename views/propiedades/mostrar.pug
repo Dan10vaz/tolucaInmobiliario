@@ -8,20 +8,23 @@ block contenido
 
     //-pre= JSON.stringify(propiedad, undefined, 2)
     //-pre= JSON.stringify(usuarioId, undefined, 2)
-    a(href="/mis-propiedades" class="rounded py-2 px-10 bg-indigo-600 hover:bg-indigo-800 text-sm font-bold text-center text-white uppercase my-5 inline-block w-full sm:w-auto") Volver 
-    
+    //-if csrfToken
+        a(href="/mis-propiedades" class="rounded py-2 px-10 bg-indigo-600 hover:bg-indigo-800 text-sm font-bold text-center text-white uppercase my-5 inline-block w-full sm:w-auto") Volver 
+    //-else
+        a(href="/mis-propiedades" class="rounded py-2 px-10 bg-indigo-600 hover:bg-indigo-800 text-sm font-bold text-center text-white uppercase my-5 inline-block w-full sm:w-auto") Volver
     div(class="py-2")
         h1(id="titulo" class="text-4xl my-3 font-extrabold text-center")= propiedad.titulo
 
         div
             a(href="#" class="font-bold text-indigo-600 text-sm") Categoria: 
-                span(class="font-normal")= propiedad.categoria.nombre
+                span(class="font-bold text-black")= propiedad.categoria.nombre
 
             a(href="#" class="font-bold text-indigo-600 text-sm ml-5") Estatus: 
-                span(class="font-normal")= propiedad.tipo.nombre
+                span(class=" text-black font-bold")= propiedad.tipo.nombre
         
         div(class="mt-5 md:flex md:gap-4 md:items-start")
             div(class="md:w-2/3 bg-white shadow-2xl rounded-lg")
+                p(class="text-xs text-center text-indigo-400") desliza la imagen hacia la derecha
                 div(class=" carousel rounded-box")
                     each i in propiedad.imagenes
                         div(class="carousel-item")
@@ -32,29 +35,29 @@ block contenido
 
                     h2(class="text-2xl leading-6 font-bold text-gray-900 text-center") Informacion de la Propiedad
 
-                    div(class="grid grid-cols-2 gap-5 md:grid-cols-4 md:gap-0")
-                        p(class="text-indigo-600 font-bold text-xs text-center") Baños
+                    div(class="grid grid-cols-2 gap-5 md:grid-cols-2 lg:grid-cols-4 md:gap-0")
+                        p(class="text-indigo-600 font-bold text-xs md:text-sm lg:text-base text-center") Baños
                             span(class="text-gray-800 block text-lg")= propiedad.wc
                         
-                        p(class="text-indigo-600 font-bold text-xs text-center") Habitaciones
+                        p(class="text-indigo-600 font-bold text-xs md:text-sm lg:text-base text-center") Habitaciones
                             span(class="text-gray-800 block text-lg")= propiedad.habitaciones
 
-                        p(class="text-indigo-600 font-bold text-xs text-center") Estacionamiento
+                        p(class="text-indigo-600 font-bold text-xs md:text-sm lg:text-base text-center") Estacionamiento
                             span(class="text-gray-800 block text-lg")= propiedad.estacionamiento
 
-                        p(class="text-indigo-600 font-bold text-xs text-center") Precio
+                        p(class="text-indigo-600 font-bold text-xs md:text-sm lg:text-base text-center") Precio
                             span(class="text-gray-800 block text-lg")= propiedad.precio
 
                     h2(class="text-2xl leading-6 font-bold text-gray-900 text-center") Contacto
 
                     div(class="grid grid-cols-1 gap-5 lg:grid-cols-3 lg:gap-0")
-                        p(class="text-indigo-600 font-bold text-xs text-center") Nombre del Agente
+                        p(class="text-indigo-600 font-bold text-xs md:text-sm lg:text-base text-center") Nombre del Agente
                             span(class="text-gray-800 block text-lg")= usuarioId.nombre
             
-                        p(class="text-indigo-600 font-bold text-xs text-center") Email
+                        p(class="text-indigo-600 font-bold text-xs md:text-sm lg:text-base text-center") Email
                             span(class="text-gray-800 block text-lg")= usuarioId.email
                     
-                        p(class="text-indigo-600 font-bold text-xs text-center") Telefono
+                        p(class="text-indigo-600 font-bold text-xs md:text-sm lg:text-base text-center") Telefono
                             span(class="text-gray-800 block text-lg")= usuarioId.telefono
 
             div(class="md:w-1/3 bg-white shadow rounded-lg")  

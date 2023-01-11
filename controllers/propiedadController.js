@@ -201,7 +201,7 @@ const almacenarImagen = async (req, res, next) => {
 
     try {
         //almacenar imagen y publicar propiedad
-        /* console.log('-----alamacenando imagenes-----', req.file) */
+        console.log('-----alamacenando imagenes-----', req.file)
         propiedad.publicado = 1
         const guardar = await Imagen.create({
             imagenes: req.file.filename,
@@ -420,6 +420,7 @@ const mostrarPropiedad = async (req, res) => {
     if (!propiedad || !propiedad.publicado) {
         return res.redirect('/404')
     }
+
 
     res.render('propiedades/mostrar', {
         propiedad,
