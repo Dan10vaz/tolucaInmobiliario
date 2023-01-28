@@ -1,12 +1,12 @@
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 const usuarios = [
-    {
-        nombre: 'Daniel',
-        email: 'dcva9565@hotmail.com',
-        telefono: '5613117007',
-        confirmado: 1,
-        password: bcrypt.hashSync('123456', 10),
-    },
-]
+  {
+    nombre: "Cesar Dominguez",
+    email: "cesar_dominguez@tolucagrupoinmobiliario.com",
+    telefono: "7291284427",
+    confirmado: 1,
+    password: bcrypt.hashSync("CesarDom12", 10),
+  },
+];
 
 export default usuarios;

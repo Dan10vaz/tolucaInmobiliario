@@ -1,4 +1,4 @@
-extends ../layout/index
+extends ../layout/app
 
 block contenido
     div.py-10
@@ -25,7 +25,7 @@ block contenido
                         input#password.w-full.px-3.py-2.border.border-gray-400.rounded-md.placeholder-gray-600.text-center(placeholder="Tu password" type="password" name="password")
 
                     div.flex.items-center.justify-between
-                        a.text-gray-500.text-sm(href="/auth/registro") No tienes cuenta? Crea una
+                        //a.text-gray-500.text-sm(href="/auth/registro") No tienes cuenta? Crea una
                         a.text-gray-500.text-sm(href="/auth/olvide-password") Olvide mi password
 
                     input(class="w-full bg-indigo-500 hover:bg-indigo-700 text-white font-bold cursor-pointer py-2 rounded-md" type="submit" value="Iniciar Sesión")
